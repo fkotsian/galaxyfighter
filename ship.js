@@ -22,6 +22,17 @@
     this.vel[1] += impulse;
   }
 
+  Ship.prototype.fireBullet = function() {
+    var b = new Asteroids.Bullet(this.pos, this.bulletVel);
+    return b;
+  }
+
+  Ship.prototype.bulletVel = function() {
+    var v = this.vel;
+    var speed = Math.sqrt( Math.pow(v[0], 2) + Math.pow(v[1], 2) );
+    return [ (v[0] / speed), (v[1] / speed) ];
+  }
+
 
 
 
