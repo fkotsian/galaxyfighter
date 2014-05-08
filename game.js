@@ -112,23 +112,31 @@
   //   this.ship.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
   // }
 
+  Game.prototype.checkForWin = function() {
+    if (this.asteroids.length === 0){
+      clearInterval(gameTimerId)
+      alert("You win! Refresh the page to play again!");
+    }
+  }
+
   Game.prototype.step = function() {
     this.move();
     // this.checkOutOfBounds();
     this.checkCollisions();
     this.draw();
+    this.checkForWin();
   }
 
   Game.prototype.start = function() {
     this.bindKeyHandlers();
-    alert("Use w,s,a,d to move, Space to fire!");
+    alert("Use w,s,a,d to move and Space to fire!");
     gameTimerId = setInterval(this.step.bind(this), Game.FPS);
-    asteroidTimerId = setInterval(function() { this.addAsteroids(2) }, 2000);
+    // asteroidTimerId = setInterval(function() { this.addAsteroids(2) }, 2000);
   }
 
   Game.prototype.stop = function() {
     clearInterval(gameTimerId);
-    clearInterval(asteroidTimerId);
+    // clearInterval(asteroidTimerId);
   }
 
 
