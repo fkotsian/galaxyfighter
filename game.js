@@ -14,11 +14,14 @@
   Game.FPS = 30;
 
   Game.prototype.bindKeyHandlers = function() {
-    var bindings = [ ['left', this.ship.power],
+    console.log("Binding handlers");
+    var bindings = [ ['up', function() { this.ship.power.call(this.ship, 5) } ],
                      ['space', this.ship.fireBullet] ];
 
     for (var i = 0; i < bindings.length; i++) {
       key( bindings[i][0], bindings[i][1] );
+      console.log("Bound handler " + bindings[i]);
+      console.log("THIS: " + this.ship.power(1));
     }
   }
 

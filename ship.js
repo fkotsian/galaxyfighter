@@ -20,6 +20,7 @@
   Ship.prototype.power = function(impulse) {
     this.vel[0] += impulse;
     this.vel[1] += impulse;
+    return true;
   }
 
   Ship.prototype.fireBullet = function() {
