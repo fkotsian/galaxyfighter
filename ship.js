@@ -26,14 +26,14 @@
   Ship.prototype.fireBullet = function(game) {
     var locX = this.pos[0];
     var locY = this.pos[1];
-    var b = new Asteroids.Bullet( game, [locX, locY], [10,10]); //this.bulletVel);
+    var b = new Asteroids.Bullet( game, [locX, locY], this.bulletVel());
     return b;
   }
 
   Ship.prototype.bulletVel = function() {
     var v = this.vel;
     var speed = Math.sqrt( Math.pow(v[0], 2) + Math.pow(v[1], 2) );
-    return [ (v[0] / speed), (v[1] / speed) ];
+    return [ (v[0] / speed * 10), (v[1] / speed * 10) ];
   }
 
 
