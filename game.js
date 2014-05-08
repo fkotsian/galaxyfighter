@@ -14,20 +14,21 @@
   Game.FPS = 30;
 
   Game.prototype.bindKeyHandlers = function() {
-    console.log("Binding handlers");
-    var bindings = [ ['up', function() { this.ship.power.call(this.ship, 5) } ],
-                     ['space', this.ship.fireBullet] ];
+    var game = this;
+    var bindings = [ ['w', function() { game.ship.power(1) } ],
+                     ['s', function() { game.ship.power(-1) } ],
+                     ['space', function() { game.fireBullet() } ] ];
 
     for (var i = 0; i < bindings.length; i++) {
       key( bindings[i][0], bindings[i][1] );
       console.log("Bound handler " + bindings[i]);
-      console.log("THIS: " + this.ship.power(1));
     }
   }
 
   Game.prototype.fireBullet = function() {
-    b = this.ship.fireBullet();
+    b = this.ship.fireBullet(this);
     this.bullets.push(b);
+    console.log("Bullet! " + this.bullets);
   }
 
   Game.prototype.addAsteroids = function (numAsteroids) {
@@ -79,7 +80,7 @@
     this.bullets.forEach(function (bullet) {
       bullet.move();
       if ( bullet.isOutOfBounds(Game.DIM_X, Game.DIM_Y) ) {
-        game.removeBullet(bullet);
+        bullet.game.removeBullet(bullet);
       }
     });
   }
@@ -87,7 +88,7 @@
   Game.prototype.removeBullet = function(b) {
     for (var i = 0; i < this.bullets.length; i++) {
       if ( this.bullets[i] === b ) {
-        this.bullets.delete[i];
+        this.bullets.splice(i,1);
       }
     }
   }
@@ -101,7 +102,7 @@
 
   Game.prototype.start = function() {
     this.bindKeyHandlers();
-    timerId = setInterval(this.step.bind(this), 20);
+    timerId = setInterval(this.step.bind(this), Game.FPS);
   }
 
   Game.prototype.stop = function() {

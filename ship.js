@@ -23,8 +23,10 @@
     return true;
   }
 
-  Ship.prototype.fireBullet = function() {
-    var b = new Asteroids.Bullet(this.pos, this.bulletVel);
+  Ship.prototype.fireBullet = function(game) {
+    var locX = this.pos[0];
+    var locY = this.pos[1];
+    var b = new Asteroids.Bullet( game, [locX, locY], [10,10]); //this.bulletVel);
     return b;
   }
 
