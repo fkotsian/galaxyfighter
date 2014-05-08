@@ -8,8 +8,8 @@
     this.addAsteroids(10);
   }
 
-  Game.DIM_X = 400;
-  Game.DIM_Y = 600;
+  Game.DIM_X = 600;
+  Game.DIM_Y = 400;
   Game.FPS = 30;
 
   Game.prototype.addAsteroids = function (numAsteroids) {
@@ -20,9 +20,11 @@
   }
 
   Game.prototype.checkCollisions = function() {
+    var game = this;
     this.asteroids.forEach(function (asteroid) {
-      if ( asteroid.isCollidedWith(this.ship) ) {
-        this.stop();
+      console.log("try ship: " + game.ship)
+      if ( asteroid.isCollidedWith(game.ship) ) {
+        game.stop();
         alert("Sorry bro! Dead ship.")
       }
     })
@@ -45,7 +47,6 @@
   }
 
   Game.prototype.step = function() {
-    console.log(this + "is in step()");
     this.move();
     this.checkCollisions();
     this.draw();
