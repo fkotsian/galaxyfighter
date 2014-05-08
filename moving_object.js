@@ -11,6 +11,9 @@
   MovingObject.prototype.move = function() {
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
+
+    //fine here, except doesn't have access to Game dims
+    //this.checkOutOfBounds
   }
 
   MovingObject.prototype.draw = function(ctx) {
@@ -41,6 +44,30 @@
       return true;
     }
     return false;
+  }
+
+  MovingObject.prototype.checkOutOfBounds = function(xBound, yBound) {
+    if ( this.isOutOfBounds(xBound, yBound) ) {
+      this.correctOutOfBounds(xBound, yBound);
+    }
+  }
+
+
+  MovingObject.prototype.isOutOfBounds = function(xBound, yBound) {
+    return (this.pos[0] > xBound) || (this.pos[0] < 0) || (this.pos[1] > yBound) || (this.pos[1] < 0)
+  }
+
+  MovingObject.prototype.correctOutOfBounds = function(xBound, yBound) {
+    if (this.pos[0] > xBound ) {
+      this.pos[0] -= xBound;
+    } else if (this.pos[0] < 0) {
+      this.pos[0] += xBound;
+    }
+    if (this.pos[1] > yBound) {
+      this.pos[1] -= yBound
+    } else if (this.pos[1] < 0) {
+      this.pos[1] += yBound;
+    }
   }
 
 

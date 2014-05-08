@@ -22,13 +22,20 @@
   Game.prototype.checkCollisions = function() {
     var game = this;
     this.asteroids.forEach(function (asteroid) {
-      console.log("try ship: " + game.ship)
       if ( asteroid.isCollidedWith(game.ship) ) {
         game.stop();
         alert("Sorry bro! Dead ship.")
       }
     })
   }
+
+  // Game.prototype.checkOutOfBounds = function() {
+  //   var game = this;
+  //   this.asteroids.forEach(function (asteroid) {
+  //     asteroid.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
+  //   });
+  //   this.ship.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
+  // }
 
   Game.prototype.draw = function () {
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
@@ -41,13 +48,17 @@
 
   Game.prototype.move = function() {
     this.ship.move();
+    this.ship.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
+
     this.asteroids.forEach(function (asteroid) {
       asteroid.move();
+      asteroid.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
     });
   }
 
   Game.prototype.step = function() {
     this.move();
+    // this.checkOutOfBounds();
     this.checkCollisions();
     this.draw();
   }
