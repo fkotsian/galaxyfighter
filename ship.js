@@ -9,7 +9,7 @@
 
   var Ship = Asteroids.Ship = function () {
     var pos = [ Asteroids.Game.DIM_X / 2, Asteroids.Game.DIM_Y / 2 ];
-    var vel = [.5,.5];
+    var vel = [0,0];
     Asteroids.MovingObject.call(this, pos, vel, Ship.RADIUS, Ship.COLOR);
   }
   Ship.inherits(Asteroids.MovingObject);
@@ -18,16 +18,19 @@
   Ship.COLOR = 'black';
 
   Ship.prototype.power = function(impulse) {
-    this.vel[0] += impulse;
-    this.vel[1] += impulse;
+    this.vel[0] += impulse[0];
+    this.vel[1] += impulse[1];
     return true;
   }
 
   Ship.prototype.fireBullet = function(game) {
-    var locX = this.pos[0];
-    var locY = this.pos[1];
-    var b = new Asteroids.Bullet( game, [locX, locY], this.bulletVel());
-    return b;
+    if ( this. vel == [0,0] ) {}
+    else {
+      var locX = this.pos[0];
+      var locY = this.pos[1];
+      var b = new Asteroids.Bullet( game, [locX, locY], this.bulletVel());
+      return b;
+    }
   }
 
   Ship.prototype.bulletVel = function() {

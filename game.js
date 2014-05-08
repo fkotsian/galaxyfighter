@@ -15,10 +15,10 @@
 
   Game.prototype.bindKeyHandlers = function() {
     var game = this;
-    var bindings = [ ['w', function() { game.ship.power(1) } ],
-                     ['s', function() { game.ship.power(-1) } ],
-                     ['a', function() { game.ship.power(-1) } ],
-                     ['d', function() { game.ship.power(-1) } ],
+    var bindings = [ ['w', function() { game.ship.power([0,-1]) } ],
+                     ['s', function() { game.ship.power([0, 1]) } ],
+                     ['a', function() { game.ship.power([-1,0]) } ],
+                     ['d', function() { game.ship.power([ 1,0]) } ],
                      ['space', function() { game.fireBullet() } ] ];
 
     for (var i = 0; i < bindings.length; i++) {
@@ -121,11 +121,14 @@
 
   Game.prototype.start = function() {
     this.bindKeyHandlers();
-    timerId = setInterval(this.step.bind(this), Game.FPS);
+    alert("Use w,s,a,d to move, Space to fire!");
+    gameTimerId = setInterval(this.step.bind(this), Game.FPS);
+    asteroidTimerId = setInterval(function() { this.addAsteroids(2) }, 2000);
   }
 
   Game.prototype.stop = function() {
-    clearInterval(timerId);
+    clearInterval(gameTimerId);
+    clearInterval(asteroidTimerId);
   }
 
 
