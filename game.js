@@ -96,11 +96,13 @@
       asteroid.move();
       asteroid.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
     });
+    var that = this;
     this.bullets.forEach(function (bullet) {
       bullet.move();
-      if ( bullet.isOutOfBounds(Game.DIM_X, Game.DIM_Y) ) {
-        bullet.game.removeBullet(bullet);
-      }
+      bullet.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
+      // if ( bullet.isOutOfBounds(Game.DIM_X, Game.DIM_Y) ) {
+      //   this.removeBullet(bullet);
+      // }
     });
   }
 

@@ -52,7 +52,6 @@
     }
   }
 
-
   MovingObject.prototype.isOutOfBounds = function(xBound, yBound) {
     return (this.pos[0] > xBound) || (this.pos[0] < 0) || (this.pos[1] > yBound) || (this.pos[1] < 0)
   }
