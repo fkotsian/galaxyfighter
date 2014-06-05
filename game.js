@@ -7,10 +7,17 @@
     this.asteroids = [];
     this.addAsteroids(10);
     this.bullets = [];
+    
+    this.img = new Image();
+    this.img.src = 'background.jpg';
+    // var that = this;
+    // this.img.onload = function () {
+    //   this.ctx.drawImage(this.img, 0, 0, Game.DIM_X, Game.DIM_Y);
+    // };
   }
 
-  Game.DIM_X = 600;
-  Game.DIM_Y = 400;
+  Game.DIM_X = 1440;
+  Game.DIM_Y = 600;
   Game.FPS = 30;
 
   Game.prototype.bindKeyHandlers = function() {
@@ -75,9 +82,9 @@
     }
   }
 
-
   Game.prototype.draw = function () {
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    this.ctx.drawImage(this.img, 0, 0, Game.DIM_X, Game.DIM_Y);
 
     this.ship.draw(ctx)
     this.asteroids.forEach(function (asteroid) {
@@ -100,19 +107,8 @@
     this.bullets.forEach(function (bullet) {
       bullet.move();
       bullet.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
-      // if ( bullet.isOutOfBounds(Game.DIM_X, Game.DIM_Y) ) {
-      //   this.removeBullet(bullet);
-      // }
     });
   }
-
-  // Game.prototype.checkOutOfBounds = function() {
-  //   var game = this;
-  //   this.asteroids.forEach(function (asteroid) {
-  //     asteroid.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
-  //   });
-  //   this.ship.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
-  // }
 
   Game.prototype.checkForWin = function() {
     if (this.asteroids.length === 0){
@@ -123,7 +119,6 @@
 
   Game.prototype.step = function() {
     this.move();
-    // this.checkOutOfBounds();
     this.checkCollisions();
     this.draw();
     this.checkForWin();

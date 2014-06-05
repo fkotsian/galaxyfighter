@@ -11,11 +11,17 @@
     var pos = [ Asteroids.Game.DIM_X / 2, Asteroids.Game.DIM_Y / 2 ];
     var vel = [0,0];
     Asteroids.MovingObject.call(this, pos, vel, Ship.RADIUS, Ship.COLOR);
+    this.img = new Image();
+    this.img.src = 'spaceship.png';
   }
   Ship.inherits(Asteroids.MovingObject);
 
-  Ship.RADIUS = 10;
+  Ship.RADIUS = 20;
   Ship.COLOR = 'black';
+  
+  Ship.prototype.draw = function(ctx) {
+    ctx.drawImage(this.img, this.pos[0], this.pos[1]);
+  }
 
   Ship.prototype.power = function(impulse) {
     this.vel[0] += impulse[0];
@@ -28,7 +34,6 @@
     else {
       var locX = this.pos[0];
       var locY = this.pos[1];
-      // debugger
       var b = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
       return b;
     }

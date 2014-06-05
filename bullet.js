@@ -14,8 +14,8 @@
 
   Bullet.inherits(Asteroids.MovingObject);
 
-  Bullet.COLOR = 'blue';
-  Bullet.RADIUS = 3;
+  Bullet.COLOR = 'yellow';
+  Bullet.RADIUS = 2;
   
   Bullet.prototype.correctOutOfBounds = function(xBound, yBound) {
     this.game.removeBullet(this);
