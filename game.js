@@ -7,6 +7,7 @@
     this.asteroids = [];
     this.addAsteroids(10);
     this.bullets = [];
+    this.level = 1;
     
     this.img = new Image();
     this.img.src = 'background.jpg';
@@ -127,12 +128,17 @@
     setTimeout(function(){}, 2000);
     gameTimerId = setInterval(this.step.bind(this), Game.FPS);
     var that = this;
-    asteroidTimerId = setInterval(function() { that.addAsteroids(2) }, 2000);
+    asteroidTimerId = setInterval(function() { that.addAsteroids(that.level) }, 2000);
+    levelTimerId = setInterval(function() { 
+      that.level += 1;
+      alert("Level up! You are now level " + level + ". \nPrepare for more asteroids!");
+    }, 60000);
   }
 
   Game.prototype.stop = function() {
     clearInterval(gameTimerId);
     clearInterval(asteroidTimerId);
+    clearInterval(levelTimerId);
   }
 
 
