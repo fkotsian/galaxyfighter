@@ -105,6 +105,7 @@
       bullet.draw(ctx);
     });
     this.drawLives();
+    this.drawLevel();
     this.drawPoints();
   }
   
@@ -114,8 +115,12 @@
     }
   }
   
+  Game.prototype.drawLevel = function() {
+    this.ctx.fillText("Level " + this.level, 0, 65);    
+  }
+  
   Game.prototype.drawPoints = function() {
-    this.ctx.fillText("SCORE: " + this.points, 0, 60);
+    this.ctx.fillText("SCORE: " + this.points, 0, 90);
   }
 
   Game.prototype.move = function() {
@@ -156,7 +161,7 @@
     asteroidTimerId = setInterval(function() { that.addAsteroids(that.level) }, 2000);
     levelTimerId = setInterval(function() { 
       that.level += 1;
-      alert("Level up! You are now level " + this.level + ". \nPrepare for more asteroids!");
+      alert("Level up! You are now level " + that.level + ". \nPrepare for more asteroids!");
     }, 60000);
   }
 

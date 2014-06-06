@@ -58,7 +58,7 @@
     var vel = [ randomVec(), randomVec() ];
 
     function randomVec() {
-      return Math.random(0, 20);
+      return Math.random(0, 30);
     }
 
     return new Asteroid(pos, vel);
