@@ -9,7 +9,7 @@
 
   var Ship = Asteroids.Ship = function () {
     var pos = [ Asteroids.Game.DIM_X / 2, Asteroids.Game.DIM_Y / 2 ];
-    var vel = [0,0];
+    var vel = [0,-1];
     Asteroids.MovingObject.call(this, pos, vel, Ship.RADIUS, Ship.COLOR);
     this.direction = 180;
     this.speed = 0;
@@ -37,7 +37,7 @@
 
   Ship.prototype.power = function(impulse) {
     this.speed += impulse;
-    return true;
+    return true;      
   }
   
   Ship.prototype.move = function() {
