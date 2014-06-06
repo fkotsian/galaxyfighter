@@ -29,31 +29,31 @@
     var choice = Math.floor(Math.random() * 7 + .1);
     switch (choice) {
     case 0:
-      img.src = 'asteroid1.png';
+      img.src = 'images/asteroids/asteroid1.png';
       break;
     case 1:
-      img.src = 'asteroid2.png';
+      img.src = 'images/asteroids/asteroid2.png';
       break;
     case 2:
-      img.src = 'asteroid3.png';
+      img.src = 'images/asteroids/asteroid3.png';
       break;
     case 3:
-      img.src = 'asteroid4.png';
+      img.src = 'images/asteroids/asteroid4.png';
       break;
     case 4:
-      img.src = 'asteroid5.png';
+      img.src = 'images/asteroids/asteroid5.png';
       break;
     case 5:
-      img.src = 'asteroid6.png';
+      img.src = 'images/asteroids/asteroid6.png';
       break;
     case 6:
-      img.src = 'asteroid7.png';
+      img.src = 'images/asteroids/asteroid7.png';
       break;
     case 7:
-      img.src = 'asteroid_special.png';
+      img.src = 'images/asteroids/asteroid_special.png';
       break;
     default: 
-      img.src = 'asteroid1.png';
+      img.src = 'images/asteroids/asteroid1.png';
     }
     return img;
   }

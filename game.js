@@ -12,7 +12,7 @@
     this.points = 0;
     
     this.img = new Image();
-    this.img.src = 'background.jpg';
+    this.img.src = 'images/backgrounds/background.jpg';
   }
 
   Game.DIM_X = Asteroids.DIM_X = 1440;
@@ -161,47 +161,47 @@
       switch (shipNum) {
       case 1:
         alert("New ship!")
-        this.ship.img.src = 'spaceship2.png';
+        this.ship.img.src = 'images/ships/spaceship2.png';
         break;
       case 2:
-        this.ship.img.src = 'spaceship3.png';
+        this.ship.img.src = 'images/ships/spaceship3.png';
         break;        
       case 3:
-        this.ship.img.src = 'spaceship4.png';
+        this.ship.img.src = 'images/ships/spaceship4.png';
         break;        
       case 4:
-        this.ship.img.src = 'spaceship8.png';
+        this.ship.img.src = 'images/ships/spaceship8.png';
         break;                
       default: 
-        this.ship.img.src = 'spaceship3.png';
+        this.ship.img.src = 'images/ships/spaceship3.png';
       }
     }
     if (bgCheck === 0) {
       var bgNum = this.level / 6;
       switch (bgNum) {
       case 1:
-        this.img.src = 'background2.jpg';
+        this.img.src = 'images/backgrounds/background2.jpg';
         break;
       case 2:
-        this.img.src = 'background3.jpg';
+        this.img.src = 'images/backgrounds/background3.jpg';
         break;        
       case 3:
-        this.img.src = 'background4.jpg';
+        this.img.src = 'images/backgrounds/background4.jpg';
         break;        
       case 4:
-        this.img.src = 'background5.jpg';
+        this.img.src = 'images/backgrounds/background5.jpg';
         break;                
       case 5:
-        this.img.src = 'background6.jpg';
+        this.img.src = 'images/backgrounds/background6.jpg';
         break;                
       case 6:
-        this.img.src = 'background7.jpg';
+        this.img.src = 'images/backgrounds/background7.jpg';
         break;                
       case 7:
-        this.img.src = 'background8.jpg';
+        this.img.src = 'images/backgrounds/background8.jpg';
         break;                
       default: 
-        this.img.src = 'background.jpg';
+        this.img.src = 'images/backgrounds/background.jpg';
       }
     }
   }

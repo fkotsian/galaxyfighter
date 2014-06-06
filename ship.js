@@ -14,7 +14,7 @@
     this.direction = 180;
     this.speed = 0;
     this.img = new Image();
-    this.img.src = 'spaceship.png';
+    this.img.src = 'images/ships/spaceship.png';
   }
   Ship.inherits(Asteroids.MovingObject);
 
