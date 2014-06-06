@@ -24,8 +24,8 @@
     var game = this;
     var bindings = [ ['w', function() { game.ship.power(1) } ],
                      ['s', function() { game.ship.power(-1) } ],
-                     ['a', function() { game.ship.rotate(15) } ],
-                     ['d', function() { game.ship.rotate(-15) } ],
+                     ['a', function() { game.ship.rotate(7.5) } ],
+                     ['d', function() { game.ship.rotate(-7.5) } ],
                      ['space', function() { game.fireBullet() } ] ];
 
     for (var i = 0; i < bindings.length; i++) {
@@ -152,6 +152,59 @@
     this.draw();
     this.checkForWin();
   }
+  
+  Game.prototype.checkLevelUp = function() {
+    var shipCheck = this.level % 8;
+    var bgCheck = this.level % 6;
+    if (shipCheck === 0) {
+      var shipNum = this.level / 8;
+      switch (shipNum) {
+      case 1:
+        alert("New ship!")
+        this.ship.img.src = 'spaceship2.png';
+        break;
+      case 2:
+        this.ship.img.src = 'spaceship3.png';
+        break;        
+      case 3:
+        this.ship.img.src = 'spaceship4.png';
+        break;        
+      case 4:
+        this.ship.img.src = 'spaceship8.png';
+        break;                
+      default: 
+        this.ship.img.src = 'spaceship3.png';
+      }
+    }
+    if (bgCheck === 0) {
+      var bgNum = this.level / 6;
+      switch (bgNum) {
+      case 1:
+        this.img.src = 'background2.jpg';
+        break;
+      case 2:
+        this.img.src = 'background3.jpg';
+        break;        
+      case 3:
+        this.img.src = 'background4.jpg';
+        break;        
+      case 4:
+        this.img.src = 'background5.jpg';
+        break;                
+      case 5:
+        this.img.src = 'background6.jpg';
+        break;                
+      case 6:
+        this.img.src = 'background7.jpg';
+        break;                
+      case 7:
+        this.img.src = 'background8.jpg';
+        break;                
+      default: 
+        this.img.src = 'background.jpg';
+      }
+    }
+  }
 
   Game.prototype.start = function() {
     this.bindKeyHandlers();
@@ -163,6 +216,7 @@
     levelTimerId = setInterval(function() { 
       that.level += 1;
       alert("Level up! You are now level " + that.level + ". \nPrepare for more asteroids!");
+      that.checkLevelUp();
     }, 60000);
   }
 
