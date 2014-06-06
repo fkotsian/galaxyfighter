@@ -98,6 +98,9 @@
     this.bullets.forEach(function (bullet) {
       bullet.draw(ctx);
     });
+    for (var i = 0; i < this.lives; i++) {
+      this.ctx.drawImage(this.ship.img, (0 + 45*i), 0)      
+    }
   }
 
   Game.prototype.move = function() {
