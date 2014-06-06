@@ -16,6 +16,7 @@
 
   Bullet.COLOR = 'yellow';
   Bullet.RADIUS = 2;
+  Bullet.SPEED = 10;
   
   Bullet.prototype.correctOutOfBounds = function(xBound, yBound) {
     this.game.removeBullet(this);

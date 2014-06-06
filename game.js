@@ -15,15 +15,15 @@
     this.img.src = 'background.jpg';
   }
 
-  Game.DIM_X = 1440;
-  Game.DIM_Y = 600;
+  Game.DIM_X = Asteroids.DIM_X = 1440;
+  Game.DIM_Y = Asteroids.DIM_Y =  600;
   Asteroids.TO_RADIANS = (Math.PI / 180);
   Game.FPS = 30;
 
   Game.prototype.bindKeyHandlers = function() {
     var game = this;
-    var bindings = [ ['w', function() { game.ship.power(2) } ],
-                     ['s', function() { game.ship.power(-2) } ],
+    var bindings = [ ['w', function() { game.ship.power(1) } ],
+                     ['s', function() { game.ship.power(-1) } ],
                      ['a', function() { game.ship.rotate(15) } ],
                      ['d', function() { game.ship.rotate(-15) } ],
                      ['space', function() { game.fireBullet() } ] ];
@@ -53,6 +53,7 @@
       if ( asteroid.isCollidedWith(game.ship) ) {
         if (game.lives > 0) {
           game.lives -= 1;
+          game.removeAsteroid(asteroid);
           alert("Sorry bro! Dead ship.\nLives left: " + game.lives);
           game.ship = new Asteroids.Ship();
         } else {
