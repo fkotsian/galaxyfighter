@@ -10,22 +10,19 @@
     
     this.img = new Image();
     this.img.src = 'background.jpg';
-    // var that = this;
-    // this.img.onload = function () {
-    //   this.ctx.drawImage(this.img, 0, 0, Game.DIM_X, Game.DIM_Y);
-    // };
   }
 
   Game.DIM_X = 1440;
   Game.DIM_Y = 600;
+  Asteroids.TO_RADIANS = (Math.PI / 180);
   Game.FPS = 30;
 
   Game.prototype.bindKeyHandlers = function() {
     var game = this;
-    var bindings = [ ['w', function() { game.ship.power([0,-1]) } ],
-                     ['s', function() { game.ship.power([0, 1]) } ],
-                     ['a', function() { game.ship.power([-1,0]) } ],
-                     ['d', function() { game.ship.power([ 1,0]) } ],
+    var bindings = [ ['w', function() { game.ship.power(2) } ],
+                     ['s', function() { game.ship.power(-2) } ],
+                     ['a', function() { game.ship.rotate(15) } ],
+                     ['d', function() { game.ship.rotate(-15) } ],
                      ['space', function() { game.fireBullet() } ] ];
 
     for (var i = 0; i < bindings.length; i++) {
@@ -126,14 +123,16 @@
 
   Game.prototype.start = function() {
     this.bindKeyHandlers();
-    alert("Use w,s,a,d to move and Space to fire!");
+    alert("Get ready! Use w,s,a,d to move and Space to fire!");
+    setTimeout(function(){}, 2000);
     gameTimerId = setInterval(this.step.bind(this), Game.FPS);
-    // asteroidTimerId = setInterval(function() { this.addAsteroids(2) }, 2000);
+    var that = this;
+    asteroidTimerId = setInterval(function() { that.addAsteroids(2) }, 2000);
   }
 
   Game.prototype.stop = function() {
     clearInterval(gameTimerId);
-    // clearInterval(asteroidTimerId);
+    clearInterval(asteroidTimerId);
   }
 
 

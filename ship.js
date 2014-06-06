@@ -11,6 +11,8 @@
     var pos = [ Asteroids.Game.DIM_X / 2, Asteroids.Game.DIM_Y / 2 ];
     var vel = [0,0];
     Asteroids.MovingObject.call(this, pos, vel, Ship.RADIUS, Ship.COLOR);
+    this.direction = 180;
+    this.speed = 5;
     this.img = new Image();
     this.img.src = 'spaceship.png';
   }
@@ -22,11 +24,21 @@
   Ship.prototype.draw = function(ctx) {
     ctx.drawImage(this.img, this.pos[0], this.pos[1]);
   }
+  
+  Ship.prototype.rotate = function(degrees) {
+    this.direction = (this.direction + degrees) % 360;
+    this.vel[0] = Math.sin(this.direction * Asteroids.TO_RADIANS);
+    this.vel[1] = Math.cos(this.direction * Asteroids.TO_RADIANS);
+  }
 
   Ship.prototype.power = function(impulse) {
-    this.vel[0] += impulse[0];
-    this.vel[1] += impulse[1];
+    this.speed += impulse;
     return true;
+  }
+  
+  Ship.prototype.move = function() {
+    this.pos[0] += (this.vel[0] * this.speed);
+    this.pos[1] += (this.vel[1] * this.speed);
   }
 
   Ship.prototype.fireBullet = function(game) {
