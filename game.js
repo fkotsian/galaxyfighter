@@ -9,6 +9,7 @@
     this.bullets = [];
     this.level = 1;
     this.lives = 3;
+    this.points = 0;
     
     this.img = new Image();
     this.img.src = 'background.jpg';
@@ -56,12 +57,13 @@
           game.ship = new Asteroids.Ship();
         } else {
           game.stop();
-          alert("Game over! :(\nRefresh to play again!");
+          alert("Game over! :(\nYour score: " + game.points + "\nRefresh to play again!");
         }
       } // implement BULLET#HITASTEROIDS below ::
       else {
         game.bullets.forEach(function (bullet) {
           if ( asteroid.isCollidedWith(bullet) ) {
+            game.givePoints(asteroid.radius);
             game.removeAsteroid(asteroid);
             game.removeBullet(bullet);
             return true;
@@ -69,6 +71,10 @@
         });
       }
     });
+  }
+  
+  Game.prototype.givePoints = function(asterRad) {
+    this.points += (this.level * Math.round(100/ asterRad) * 5);
   }
 
   Game.prototype.removeAsteroid = function(a){
@@ -98,9 +104,18 @@
     this.bullets.forEach(function (bullet) {
       bullet.draw(ctx);
     });
+    this.drawLives();
+    this.drawPoints();
+  }
+  
+  Game.prototype.drawLives = function() {    
     for (var i = 0; i < this.lives; i++) {
       this.ctx.drawImage(this.ship.img, (0 + 45*i), 0)      
     }
+  }
+  
+  Game.prototype.drawPoints = function() {
+    this.ctx.fillText("SCORE: " + this.points, 0, 60);
   }
 
   Game.prototype.move = function() {

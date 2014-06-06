@@ -44,7 +44,7 @@
   }
 
   Asteroid.prototype.randRadius = function() {
-    return Asteroid.RADIUS + Math.random() * 30;
+    return Asteroid.RADIUS + Math.random() * 40;
   }
 
   Asteroid.randomAsteroid = function(dimX, dimY) {
