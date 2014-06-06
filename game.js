@@ -8,6 +8,7 @@
     this.addAsteroids(10);
     this.bullets = [];
     this.level = 1;
+    this.lives = 3;
     
     this.img = new Image();
     this.img.src = 'background.jpg';
@@ -49,8 +50,14 @@
     var game = this;
     this.asteroids.forEach(function (asteroid) {
       if ( asteroid.isCollidedWith(game.ship) ) {
-        game.stop();
-        alert("Sorry bro! Dead ship.");
+        if (game.lives > 0) {
+          game.lives -= 1;
+          alert("Sorry bro! Dead ship.\nLives left: " + game.lives);
+          game.ship = new Asteroids.Ship();
+        } else {
+          game.stop();
+          alert("Game over! :(\nRefresh to play again!");
+        }
       } // implement BULLET#HITASTEROIDS below ::
       else {
         game.bullets.forEach(function (bullet) {
@@ -131,7 +138,7 @@
     asteroidTimerId = setInterval(function() { that.addAsteroids(that.level) }, 2000);
     levelTimerId = setInterval(function() { 
       that.level += 1;
-      alert("Level up! You are now level " + level + ". \nPrepare for more asteroids!");
+      alert("Level up! You are now level " + this.level + ". \nPrepare for more asteroids!");
     }, 60000);
   }
 
