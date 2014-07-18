@@ -66,15 +66,15 @@
   Asteroid.randomAsteroid = function(game, dimX, dimY) {
     var randX = Math.random() * dimX;
     var randY = Math.random() * dimY;
-    if (randX > randY) {
-      var pos = [ randX, 0 ];
+    if (randY < Asteroids.Game.DIM_Y / 2.5) {
+      var pos = [ randX, randY ];
     } else {
-      var pos = [ 0, randY ];
+      var pos = [ randX, 0 ];
     }
-    var vel = [ randomVec(), randomVec() ];
+    var vel = [ 0, randomSpeed() ];
 
-    function randomVec() {
-      return Math.random(0, 40);
+    function randomSpeed() {
+      return Math.random(20, 60);
     }
 
     return new Asteroid(game, pos, vel);
