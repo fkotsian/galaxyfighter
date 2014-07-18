@@ -41,19 +41,13 @@
   }
 
   Ship.prototype.fireBullet = function(game) {
-    // if ( this.vel == [0,0] ) {}
-    // else {
-      var locX = this.pos[0];
-      var locY = this.pos[1];
-      var b = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
-      return b;
-    // }
+    var locX = this.pos[0];
+    var locY = this.pos[1];
+    var b = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
+    return b;
   }
 
   Ship.prototype.bulletVel = function() {
-    // var v = this.vel;
-    // var speed = 10;
-    // return [ (v[0] * Asteroids.Bullet.SPEED), (v[1] * Asteroids.Bullet.SPEED) ];
     return [0, Asteroids.Bullet.SPEED * -1];
   }
 
