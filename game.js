@@ -5,7 +5,7 @@
     this.ctx = ctx;
     this.ship = new Asteroids.Ship();
     this.asteroids = [];
-    // this.addAsteroids(10);
+    this.addAsteroids(10);
     this.bullets = [];
     this.level = 1;
     this.lives = 3;
@@ -22,10 +22,10 @@
 
   Game.prototype.bindKeyHandlers = function() {
     var game = this;
-    var bindings = [ ['w', function() { game.ship.power(1) } ],
-                     ['s', function() { game.ship.power(-1) } ],
-                     ['a', function() { game.ship.rotate(7.5) } ],
-                     ['d', function() { game.ship.rotate(-7.5) } ],
+    var bindings = [ ['w', function() { game.ship.power( [ 0, 1] ) } ],
+                     ['s', function() { game.ship.power( [ 0,-1] ) } ],
+                     ['a', function() { game.ship.power( [-1, 0] ) } ],
+                     ['d', function() { game.ship.power( [ 1, 0] ) } ],
                      ['space', function() { game.fireBullet() } ] ];
 
     for (var i = 0; i < bindings.length; i++) {
