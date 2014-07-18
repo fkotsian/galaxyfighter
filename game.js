@@ -22,8 +22,8 @@
 
   Game.prototype.bindKeyHandlers = function() {
     var game = this;
-    var bindings = [ ['w', function() { game.ship.power( [ 0, 1] ) } ],
-                     ['s', function() { game.ship.power( [ 0,-1] ) } ],
+    var bindings = [ ['w', function() { game.ship.power( [ 0,-1] ) } ],
+                     ['s', function() { game.ship.power( [ 0, 1] ) } ],
                      ['a', function() { game.ship.power( [-1, 0] ) } ],
                      ['d', function() { game.ship.power( [ 1, 0] ) } ],
                      ['space', function() { game.fireBullet() } ] ];

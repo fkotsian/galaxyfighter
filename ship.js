@@ -8,11 +8,11 @@
   }
 
   var Ship = Asteroids.Ship = function () {
-    var pos = [ Asteroids.Game.DIM_X / 2, Asteroids.Game.DIM_Y / 2 ];
+    var pos = [ Asteroids.Game.DIM_X / 2, Asteroids.Game.DIM_Y / 5 * 4 ];
     var vel = [0, 0];
     Asteroids.MovingObject.call(this, pos, vel, Ship.RADIUS, Ship.COLOR);
     this.direction = 180;
-    this.speed = 1;
+    this.speed = 5;
     this.img = new Image();
     this.img.src = 'images/ships/spaceship.png';
   }
@@ -30,9 +30,8 @@
   }
 
   Ship.prototype.power = function(impulse) {
-    this.vel[0] += impulse[0];
-    this.vel[1] += impulse[1];
-    console.log("powering!");
+    this.vel[0] = impulse[0];
+    this.vel[1] = impulse[1];
     return true;
   }
   
@@ -42,20 +41,20 @@
   }
 
   Ship.prototype.fireBullet = function(game) {
-    if ( this.vel == [0,0] ) {}
-    else {
+    // if ( this.vel == [0,0] ) {}
+    // else {
       var locX = this.pos[0];
       var locY = this.pos[1];
       var b = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
       return b;
-    }
+    // }
   }
 
   Ship.prototype.bulletVel = function() {
-    var v = this.vel;
-    var speed = 10;
-    // var speed = Math.sqrt( Math.pow(v[0], 2) + Math.pow(v[1], 2) );
-    return [ (v[0] * Asteroids.Bullet.SPEED), (v[1] * Asteroids.Bullet.SPEED) ];
+    // var v = this.vel;
+    // var speed = 10;
+    // return [ (v[0] * Asteroids.Bullet.SPEED), (v[1] * Asteroids.Bullet.SPEED) ];
+    return [0, Asteroids.Bullet.SPEED * -1];
   }
 
 })(this);
