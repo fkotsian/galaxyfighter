@@ -15,8 +15,8 @@
     this.img.src = 'images/backgrounds/background.jpg';
   }
 
-  Game.DIM_X = Asteroids.DIM_X = 1440;
-  Game.DIM_Y = Asteroids.DIM_Y =  600;
+  Game.DIM_X = Asteroids.DIM_X = 600;
+  Game.DIM_Y = Asteroids.DIM_Y =  720;
   Asteroids.TO_RADIANS = (Math.PI / 180);
   Game.FPS = 30;
 
