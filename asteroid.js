@@ -81,17 +81,16 @@
   }
   
   Asteroid.prototype.correctOutOfBounds = function(xBound, yBound) {
-    this.game.removeAsteroid(this);
-    // if (this.pos[0] > xBound ) {
-    //   this.pos[0] -= xBound;
-    // } else if (this.pos[0] < 0) {
-    //   this.pos[0] += xBound;
-    // }
-    // if (this.pos[1] > yBound) {
-    //   this.game.removeAsteroid(this);
-    // } else if (this.pos[1] < 0) {
-    //   this.game.removeAsteroid(this);
-    // }
+    if (this.pos[0] > xBound ) {
+      this.pos[0] -= xBound;
+    } else if (this.pos[0] < 0) {
+      this.pos[0] += xBound;
+    }
+    if (this.pos[1] > yBound) {
+      this.game.removeAsteroid(this);
+    } else if (this.pos[1] < 0) {
+      this.game.removeAsteroid(this);
+    }
   }
 
 })(this);
