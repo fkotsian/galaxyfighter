@@ -5,7 +5,7 @@
     this.ctx = ctx;
     this.ship = new Asteroids.Ship();
     this.asteroids = [];
-    this.addAsteroids(10);
+    // this.addAsteroids(10);
     this.bullets = [];
     this.level = 1;
     this.lives = 3;
