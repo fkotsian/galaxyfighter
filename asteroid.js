@@ -7,9 +7,10 @@
     this.prototype = new Surrogate();
   }
 
-  var Asteroid = Asteroids.Asteroid = function (pos, vel) {
+  var Asteroid = Asteroids.Asteroid = function (game, pos, vel) {
     var radius = this.randRadius();
     Asteroids.MovingObject.call(this, pos, vel, radius, Asteroid.COLOR);
+    this.game = game;
     this.img = this.asteroidImage();
     this.img.style.width = radius * 2;
     this.img.style.height = radius * 2;
@@ -62,7 +63,7 @@
     return Asteroid.RADIUS + Math.random() * 40;
   }
 
-  Asteroid.randomAsteroid = function(dimX, dimY) {
+  Asteroid.randomAsteroid = function(game, dimX, dimY) {
     var randX = Math.random() * dimX;
     var randY = Math.random() * dimY;
     if (randX > randY) {
@@ -76,7 +77,21 @@
       return Math.random(0, 40);
     }
 
-    return new Asteroid(pos, vel);
+    return new Asteroid(game, pos, vel);
+  }
+  
+  Asteroid.prototype.correctOutOfBounds = function(xBound, yBound) {
+    this.game.removeAsteroid(this);
+    // if (this.pos[0] > xBound ) {
+    //   this.pos[0] -= xBound;
+    // } else if (this.pos[0] < 0) {
+    //   this.pos[0] += xBound;
+    // }
+    // if (this.pos[1] > yBound) {
+    //   this.game.removeAsteroid(this);
+    // } else if (this.pos[1] < 0) {
+    //   this.game.removeAsteroid(this);
+    // }
   }
 
 })(this);

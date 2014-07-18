@@ -42,7 +42,7 @@
 
   Game.prototype.addAsteroids = function (numAsteroids) {
     for (var i = 0; i < numAsteroids; i++) {
-      var asteroid = Asteroids.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y);
+      var asteroid = Asteroids.Asteroid.randomAsteroid(this, Game.DIM_X, Game.DIM_Y);
       this.asteroids.push(asteroid);
     }
   }
