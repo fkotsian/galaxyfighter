@@ -3,6 +3,8 @@
 
   var Game = Asteroids.Game = function(ctx) {
     this.ctx = ctx;
+    this.stars = [];
+    this.addStars(100);
     this.ship = new Asteroids.Ship();
     this.asteroids = [];
     this.addAsteroids(10);
@@ -40,10 +42,17 @@
     console.log("Bullet! " + this.bullets);
   }
 
-  Game.prototype.addAsteroids = function (numAsteroids) {
+  Game.prototype.addAsteroids = function(numAsteroids) {
     for (var i = 0; i < numAsteroids; i++) {
       var asteroid = Asteroids.Asteroid.randomAsteroid(this, Game.DIM_X, Game.DIM_Y);
       this.asteroids.push(asteroid);
+    }
+  }
+  
+  Game.prototype.addStars = function(numStars) {
+    for (var i = 0; i < numStars; i++) {
+      var star = Asteroids.Star.randomStar(Game.DIM_X, Game.DIM_Y);
+      this.stars.push(star);
     }
   }
 
@@ -96,7 +105,9 @@
 
   Game.prototype.draw = function () {
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
-    this.ctx.drawImage(this.img, 0, 0, Game.DIM_X, Game.DIM_Y);
+    this.ctx.fillStyle = "#000000";
+    this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y)
+    // this.ctx.drawImage(this.img, 0, 0, Game.DIM_X, Game.DIM_Y);
 
     this.ship.draw(ctx)
     this.asteroids.forEach(function (asteroid) {
