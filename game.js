@@ -8,20 +8,23 @@
     this.addStars(100);
     this.asteroids = [];
     this.addAsteroids(10);
+    this.powerups = [];
     this.bullets = [];
     this.level = 1;
     this.lives = 3;
     this.points = 0;
+    this.powerupPoints = 0;
 
     // for now, background img is black
     // this.img = new Image();
     // this.img.src = 'images/backgrounds/background.jpg';
   }
 
+  Asteroids.TO_RADIANS = (Math.PI / 180);
   Game.DIM_X = Asteroids.DIM_X = 600;
   Game.DIM_Y = Asteroids.DIM_Y =  720;
-  Asteroids.TO_RADIANS = (Math.PI / 180);
   Game.FPS = 30;
+  Game.POINTS_FOR_POWERUP = 250;
 
   Game.prototype.bindKeyHandlers = function() {
     var game = this;
@@ -56,6 +59,13 @@
       this.stars.push(star);
     }
   }
+  
+  Game.prototype.addPowerups = function(numPowerups, pos, vel) {
+    for (var i = 0; i < numPowerups; i++) {
+      var powerup = Asteroids.Powerup.randomPowerup(pos, vel);
+      this.powerups.push(powerup);
+    }
+  }
 
   Game.prototype.checkCollisions = function() {
     var game = this;
@@ -64,7 +74,7 @@
         if (game.lives > 0) {
           game.lives -= 1;
           game.removeAsteroid(asteroid);
-          alert("Sorry bro! Dead ship.\nLives left: " + game.lives);
+          alert("Dum. Dum. Dum.\nAnother one bites the dust.\n\nLives left: " + game.lives);
           game.ship = new Asteroids.Ship();
         } else {
           game.stop();
@@ -74,7 +84,7 @@
       else {
         game.bullets.forEach(function (bullet) {
           if ( asteroid.isCollidedWith(bullet) ) {
-            game.givePoints(asteroid.radius);
+            game.givePointsAndPowerups(asteroid);
             game.removeAsteroid(asteroid);
             game.removeBullet(bullet);
             return true;
@@ -84,8 +94,28 @@
     });
   }
   
-  Game.prototype.givePoints = function(asterRad) {
-    this.points += (this.level * Math.round(100/ asterRad) * 5);
+  Game.prototype.givePointsAndPowerups = function(asteroid) {
+    var pts = (this.level * asteroid.pointVal);
+    this.points += pts;
+    
+    // check if pts earned qualify us for a powerup
+    this.checkForPowerup(pts, asteroid);
+  }
+  
+  Game.prototype.checkForPowerup = function(pts, asteroid) {
+    this.powerupPoints += pts;
+    console.log(this.powerupPoints, Game.POINTS_FOR_POWERUP);
+    if (this.powerupPoints >= Game.POINTS_FOR_POWERUP) {
+      
+      var newPos = asteroid.pos;
+      var newVelX = asteroid.vel[0] * Math.random() * 2;
+      var newVelY = asteroid.vel[1] * Math.random() * 2;
+      var newVel = [ newVelX, newVelY ];
+      
+      this.powerupPoints = 0;
+      console.log("powerup points achieved!")
+      this.addPowerups(1, newPos, newVel);
+    }
   }
 
   Game.prototype.removeAsteroid = function(a){
@@ -113,6 +143,7 @@
     this.ship.draw(ctx)
     this.drawCollection(this.stars);
     this.drawCollection(this.asteroids);
+    this.drawCollection(this.powerups);
     this.drawCollection(this.bullets);
     this.drawLives();
     this.drawLevel();
@@ -151,6 +182,11 @@
     this.asteroids.forEach(function (asteroid) {
       asteroid.move();
       asteroid.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
+    });
+    
+    this.powerups.forEach(function (powerup) {
+      powerup.move();
+      powerup.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
     });
     
     this.bullets.forEach(function (bullet) {

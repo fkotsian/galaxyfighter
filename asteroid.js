@@ -11,6 +11,8 @@
     var radius = this.randRadius();
     Asteroids.MovingObject.call(this, pos, vel, radius, Asteroid.COLOR);
     this.game = game;
+    this.pointVal = this.pointValue();
+    
     this.img = this.asteroidImage();
     this.img.style.width = radius * 2;
     this.img.style.height = radius * 2;
@@ -20,6 +22,10 @@
 
   Asteroid.COLOR = 'red';
   Asteroid.RADIUS = 15;
+  
+  Asteroid.prototype.pointValue = function() {
+    return ( Math.round(100/ this.radius) * 5 )
+  }
 
   Asteroid.prototype.draw = function(ctx) {
     ctx.drawImage(this.img, this.pos[0], this.pos[1], this.radius * 2, this.radius * 2);

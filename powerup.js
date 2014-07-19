@@ -30,6 +30,8 @@
     return Powerup.COLORS[rand];
   }
   
-  Powerup.draw
+  // Powerup.draw(ctx) {
+  //   //implement square shape + logo for powerups
+  // }
   
 })(this);
