@@ -3,18 +3,19 @@
 
   var Game = Asteroids.Game = function(ctx) {
     this.ctx = ctx;
+    this.ship = new Asteroids.Ship();
     this.stars = [];
     this.addStars(100);
-    this.ship = new Asteroids.Ship();
     this.asteroids = [];
     this.addAsteroids(10);
     this.bullets = [];
     this.level = 1;
     this.lives = 3;
     this.points = 0;
-    
-    this.img = new Image();
-    this.img.src = 'images/backgrounds/background.jpg';
+
+    // for now, background img is black
+    // this.img = new Image();
+    // this.img.src = 'images/backgrounds/background.jpg';
   }
 
   Game.DIM_X = Asteroids.DIM_X = 600;
@@ -110,15 +111,18 @@
     // this.ctx.drawImage(this.img, 0, 0, Game.DIM_X, Game.DIM_Y);
 
     this.ship.draw(ctx)
-    this.asteroids.forEach(function (asteroid) {
-      asteroid.draw(ctx);
-    });
-    this.bullets.forEach(function (bullet) {
-      bullet.draw(ctx);
-    });
+    this.drawCollection(this.stars);
+    this.drawCollection(this.asteroids);
+    this.drawCollection(this.bullets);
     this.drawLives();
     this.drawLevel();
     this.drawPoints();
+  }
+  
+  Game.prototype.drawCollection = function(collection) {
+    collection.forEach(function(object) {
+      object.draw(ctx);
+    });
   }
   
   Game.prototype.drawLives = function() {    
@@ -138,12 +142,17 @@
   Game.prototype.move = function() {
     this.ship.move();
     this.ship.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
+    
+    this.stars.forEach(function (star) {
+      star.move();
+      star.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
+    });
 
     this.asteroids.forEach(function (asteroid) {
       asteroid.move();
       asteroid.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
     });
-    var that = this;
+    
     this.bullets.forEach(function (bullet) {
       bullet.move();
       bullet.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);

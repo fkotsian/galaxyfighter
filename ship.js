@@ -50,5 +50,20 @@
   Ship.prototype.bulletVel = function() {
     return [0, Asteroids.Bullet.SPEED * -1];
   }
+  
+  Ship.prototype.correctOutOfBounds = function(xBound, yBound) {
+    if (this.pos[0] > xBound ) {
+      this.pos[0] -= xBound;
+    } else if (this.pos[0] < 0) {
+      this.pos[0] += xBound;
+    }
+    if (this.pos[1] > yBound) {
+      this.pos[1] = yBound - this.radius;
+      this.vel[1] = 0;
+    } else if (this.pos[1] < 0) {
+      this.pos[1] = 0 + this.radius;
+      this.vel[1] = 0;
+    }
+  }
 
 })(this);

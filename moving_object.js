@@ -58,11 +58,9 @@
       this.pos[0] += xBound;
     }
     if (this.pos[1] > yBound) {
-      this.pos[1] = yBound - this.radius;
-      this.vel[1] = 0;
+      this.pos[1] -= yBound;
     } else if (this.pos[1] < 0) {
-      this.pos[1] = 0 + this.radius;
-      this.vel[1] = 0;
+      this.pos[1] += yBound;
     }
   }
 

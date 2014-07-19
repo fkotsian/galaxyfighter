@@ -11,7 +11,7 @@
     Asteroids.MovingObject.call(this, pos, vel, Star.RADIUS, Star.COLOR);
   };
   
-  Star.inherits(Asteroid.MovingObject);
+  Star.inherits(Asteroids.MovingObject);
   
   Star.COLOR = "#FFFFFF";
   Star.RADIUS = 1;
