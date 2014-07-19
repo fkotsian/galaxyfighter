@@ -171,28 +171,21 @@
   }
 
   Game.prototype.move = function() {
-    this.ship.move();
-    this.ship.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
+    this.moveObject(this.ship);
     
-    this.stars.forEach(function (star) {
-      star.move();
-      star.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
-    });
-
-    this.asteroids.forEach(function (asteroid) {
-      asteroid.move();
-      asteroid.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
-    });
-    
-    this.powerups.forEach(function (powerup) {
-      powerup.move();
-      powerup.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
-    });
-    
-    this.bullets.forEach(function (bullet) {
-      bullet.move();
-      bullet.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
-    });
+    this.moveCollection(this.stars);
+    this.moveCollection(this.asteroids);
+    this.moveCollection(this.powerups);
+    this.moveCollection(this.bullets);
+  }
+  
+  Game.prototype.moveObject = function(obj) {
+    obj.move();
+    obj.checkOutOfBounds(Game.DIM_X, Game.DIM_Y);
+  }
+  
+  Game.prototype.moveCollection = function(coll) {
+    coll.forEach(this.moveObject);
   }
 
   Game.prototype.checkForWin = function() {
