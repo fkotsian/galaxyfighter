@@ -13,6 +13,8 @@
     Asteroids.MovingObject.call(this, pos, vel, Ship.RADIUS, Ship.COLOR);
     this.direction = 180;
     this.speed = 5;
+    this.powerups = {};
+    
     this.img = new Image();
     this.img.src = 'images/ships/spaceship.png';
   }
@@ -38,6 +40,17 @@
   Ship.prototype.move = function() {
     this.pos[0] += (this.vel[0] * this.speed);
     this.pos[1] += (this.vel[1] * this.speed);
+  }
+  
+  Ship.prototype.resetPowerups = function() {
+    ship = this;
+    Asteroids.Powerup.COLORS.forEach(function(color) {
+      ship.powerups[color] = 0;
+    })
+  }
+  
+  Ship.prototype.gainPowerup = function(powerupColor) {
+    
   }
 
   Ship.prototype.fireBullet = function(game) {

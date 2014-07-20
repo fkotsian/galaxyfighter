@@ -68,36 +68,24 @@
   }
 
   Game.prototype.checkCollisions = function() {
-    var game = this;
-    this.asteroids.forEach(function (asteroid) {
-      if ( asteroid.isCollidedWith(game.ship) ) {
-        if (game.lives > 0) {
-          game.lives -= 1;
-          game.removeAsteroid(asteroid);
-          alert("Dum. Dum. Dum.\nAnother one bites the dust.\n\nLives left: " + game.lives);
-          game.ship = new Asteroids.Ship();
-        } else {
-          game.stop();
-          alert("Game over! :(\nYour score: " + game.points + "\nRefresh to play again!");
-        }
-      } // implement BULLET#HITASTEROIDS below ::
-      else {
-        game.bullets.forEach(function (bullet) {
-          if ( asteroid.isCollidedWith(bullet) ) {
-            game.givePointsAndPowerups(asteroid);
-            game.removeAsteroid(asteroid);
-            game.removeBullet(bullet);
-            return true;
-          }
-        });
-      }
-    });
+    this.checkAsteroidCollisions();
   }
   
   Game.prototype.checkShipCollisions = function() {
     // ship collides with asteroids
+    // currently handled in checkAsteroidCollisions()
+    
     // ship collides with powerups
+    var game = this;
+    this.powerups.forEach(function(powerup) {
+      if (game.ship.isCollidedWith(powerup)) {
+        game.ship.gainPowerup(powerup.color);
+        
+      }
+    });
+    
     // ship collides with enemy bullets
+    // not yet implemented
   }
   
   Game.prototype.checkAsteroidCollisions = function() {
@@ -110,14 +98,12 @@
         game.removeAsteroid(asteroid);
         
         if (game.lives > 0) {
-          alert("Dum. Dum. Dum.\nAnother one bites the dust.\n\n
-                Lives left: " + game.lives);
+          alert("Dum. Dum. Dum.\nAnother one bites the dust.\n\nLives left: " + game.lives);
           game.ship = new Asteroids.Ship(); 
         } 
         else {
           game.stop();
-          alert("Game over!\n
-                Your score: " + game.points + "\nRefresh to play again!");
+          alert("Game over!\nYour score: " + game.points + "\nRefresh to play again!");
         }
       }
       // asteroid collides with bullet      
@@ -134,7 +120,7 @@
   
   Game.prototype.checkBulletCollisions = function() {
     // bullet collides with asteroids
-    // currently covered in checkAsteroidCollisions();
+    // currently handled in checkAsteroidCollisions();
   }
   
   Game.prototype.givePointsAndPowerups = function(asteroid) {
@@ -160,21 +146,25 @@
       this.addPowerups(1, newPos, newVel);
     }
   }
-
-  Game.prototype.removeAsteroid = function(a){
-    for (var i = 0; i < this.asteroids.length; i++) {
-      if ( this.asteroids[i] === a ) {
-        this.asteroids.splice(i,1);
+  
+  Game.prototype.removeObjectFromCollection = function(obj, coll) {
+    for (var i = 0; i < coll.length; i++) {
+      if ( coll[i] === obj ) {
+        coll.splice(i,1);
       }
     }
   }
 
+  Game.prototype.removeAsteroid = function(a){
+    this.removeObjectFromCollection(a, this.asteroids);
+  }
+  
+  Game.prototype.removePowerup = function(pu) {
+    this.removeObjectFromCollection(pu, this.powerups);
+  }
+
   Game.prototype.removeBullet = function(b) {
-    for (var i = 0; i < this.bullets.length; i++) {
-      if ( this.bullets[i] === b ) {
-        this.bullets.splice(i,1);
-      }
-    }
+    this.removeObjectFromCollection(b, this.bullets);
   }
 
   Game.prototype.draw = function () {
@@ -233,7 +223,7 @@
 
   Game.prototype.checkForWin = function() {
     if (this.asteroids.length === 0){
-      clearInterval(gameTimerId);
+      this.stop();
       alert("You win! Refresh the page to play again!");
     }
   }

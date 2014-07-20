@@ -8,12 +8,12 @@
   }
   
   var Powerup = Asteroids.Powerup = function(pos, vel) {
-    Asteroids.MovingObject.call(this, pos, vel, Powerup.RADIUS, Powerup.randomColor);
+    Asteroids.MovingObject.call(this, pos, vel, Powerup.RADIUS, Powerup.randomColor());
   };
   
   Powerup.inherits(Asteroids.MovingObject);
   
-  Powerup.COLORS = 'red', 'blue', 'purple';
+  Powerup.COLORS = ['red', 'blue', 'purple'];
   Powerup.RADIUS = 4;
   
   Powerup.randomPowerup = function(pos, vel) {
