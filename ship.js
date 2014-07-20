@@ -14,6 +14,8 @@
     this.direction = 180;
     this.speed = 5;
     this.powerups = {};
+    this.resetPowerups();
+    this.bulletType = Asteroids.Powerup.COLORS[0];
     
     this.img = new Image();
     this.img.src = 'images/ships/spaceship.png';
@@ -50,13 +52,26 @@
   }
   
   Ship.prototype.gainPowerup = function(powerupColor) {
-    
+    var currPowerups = this.powerups[powerupColor];
+    this.resetPowerups();
+    this.powerups[powerupColor] = currPowerups + 1;
+    this.bulletType = this.powerups[powerupColor];
   }
 
   Ship.prototype.fireBullet = function(game) {
     var locX = this.pos[0];
     var locY = this.pos[1];
-    var b = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
+    
+    switch (this.bulletType) {
+    case 1:
+      break; 
+    case 2:
+      break;
+    case 3:
+      break;
+    default:
+      var b = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
+    }
     return b;
   }
 

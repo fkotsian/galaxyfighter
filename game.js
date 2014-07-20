@@ -80,7 +80,7 @@
     this.powerups.forEach(function(powerup) {
       if (game.ship.isCollidedWith(powerup)) {
         game.ship.gainPowerup(powerup.color);
-        
+        game.removePowerup(powerup);
       }
     });
     
