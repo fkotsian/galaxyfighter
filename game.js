@@ -94,6 +94,49 @@
     });
   }
   
+  Game.prototype.checkShipCollisions = function() {
+    // ship collides with asteroids
+    // ship collides with powerups
+    // ship collides with enemy bullets
+  }
+  
+  Game.prototype.checkAsteroidCollisions = function() {
+    // asteroid collides with ship
+    var game = this;
+    
+    this.asteroids.forEach(function (asteroid) {
+      if ( asteroid.isCollidedWith(game.ship) ) {
+        game.lives -= 1;
+        game.removeAsteroid(asteroid);
+        
+        if (game.lives > 0) {
+          alert("Dum. Dum. Dum.\nAnother one bites the dust.\n\n
+                Lives left: " + game.lives);
+          game.ship = new Asteroids.Ship(); 
+        } 
+        else {
+          game.stop();
+          alert("Game over!\n
+                Your score: " + game.points + "\nRefresh to play again!");
+        }
+      }
+      // asteroid collides with bullet      
+      game.bullets.forEach(function (bullet) {
+        if ( asteroid.isCollidedWith(bullet) ) {
+          game.givePointsAndPowerups(asteroid);
+          game.removeAsteroid(asteroid);
+          game.removeBullet(bullet);
+          return true;
+        }
+      });
+    });
+  }
+  
+  Game.prototype.checkBulletCollisions = function() {
+    // bullet collides with asteroids
+    // currently covered in checkAsteroidCollisions();
+  }
+  
   Game.prototype.givePointsAndPowerups = function(asteroid) {
     var pts = (this.level * asteroid.pointVal);
     this.points += pts;
@@ -190,7 +233,7 @@
 
   Game.prototype.checkForWin = function() {
     if (this.asteroids.length === 0){
-      clearInterval(gameTimerId)
+      clearInterval(gameTimerId);
       alert("You win! Refresh the page to play again!");
     }
   }
@@ -260,8 +303,12 @@
     alert("Get ready! Use w,s,a,d to move and Space to fire!");
     setTimeout(function(){}, 2000);
     gameTimerId = setInterval(this.step.bind(this), Game.FPS);
+    
     var that = this;
-    asteroidTimerId = setInterval(function() { that.addAsteroids(that.level) }, 2000);
+    asteroidTimerId = setInterval(function() { 
+      that.addAsteroids(that.level) 
+    }, 2000);
+    
     levelTimerId = setInterval(function() { 
       that.level += 1;
       alert("Level up! You are now level " + that.level + ". \nPrepare for more asteroids!");
