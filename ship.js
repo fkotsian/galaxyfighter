@@ -87,7 +87,7 @@
       })
       break;
     default:
-      b.push( Asteroids.Bullet(game, position, this.bulletVel()) );
+      b.push(new Asteroids.Bullet(game, position, this.bulletVel()) );
       // should be fanciest case (if not 0 or 1)
     }
     return b;
