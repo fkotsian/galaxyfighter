@@ -61,8 +61,9 @@
   }
 
   Ship.prototype.fireBullet = function(game) {
-    var locX = this.pos[0];
-    var locY = this.pos[1];
+    var px = this.pos[0];
+    var py = this.pos[1];
+    var position = [px,py];
     
     // future: 3 different weapon types, based on 3 different powerups
     // switch (this.bulletType) {
@@ -74,19 +75,19 @@
     //   break;
     // }
 
+    var b = [];
     switch (this.powerupLevel) {
     case 0:
-      var b1 = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
-      var b = [b1];
-      break;
+      b.push(new Asteroids.Bullet(game, position, this.bulletVel()) );
+      break; 
     case 1:
-      var b1 = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
-      var b2 = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
-      var b = [b1, b2];
+      var vels = this.bigBulletVels();
+      vels.forEach(function(vel) {
+        b.push(new Asteroids.Bullet(game, position, vel));
+      })
       break;
     default:
-      var b1 = new Asteroids.Bullet( game, [locX, locY], this.bulletVel() );
-      var b = [b1];
+      b.push( Asteroids.Bullet(game, position, this.bulletVel()) );
       // should be fanciest case (if not 0 or 1)
     }
     return b;
@@ -94,6 +95,17 @@
 
   Ship.prototype.bulletVel = function() {
     return [0, Asteroids.Bullet.SPEED * -1];
+  }
+  
+  Ship.prototype.bigBulletVels = function() {
+    var speed = Asteroids.Bullet.SPEED * -1;
+    return [ [speed, speed], [speed * -1, speed] ];
+  }
+  
+  Ship.prototype.biggestBulletVels = function() {
+    // var speed = Asteroids.Bullet.SPEED * -1;
+    // divide 180 by numBullets and then take cos of each to get angle
+    // generalize this method to spray an arc
   }
   
   Ship.prototype.correctOutOfBounds = function(xBound, yBound) {
