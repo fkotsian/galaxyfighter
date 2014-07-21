@@ -81,9 +81,10 @@
       b.push(new Asteroids.Bullet(game, position, this.bulletVel()) );
       break; 
     case 1:
-      var vels = this.bigBulletVels();
+      var vels = this.splitVels();
       vels.forEach(function(vel) {
         b.push(new Asteroids.Bullet(game, position, vel));
+        console.log("making new bullet");
       })
       break;
     default:
@@ -94,12 +95,21 @@
   }
 
   Ship.prototype.bulletVel = function() {
+    return [0, Asteroids.Bullet.SPEED];
+  }
+  
+  Ship.prototype.bomberVel = function() {
     return [0, Asteroids.Bullet.SPEED * -1];
   }
   
-  Ship.prototype.bigBulletVels = function() {
-    var speed = Asteroids.Bullet.SPEED * -1;
-    return [ [speed, speed], [speed * -1, speed] ];
+  Ship.prototype.splitVels = function() {
+    var x_spd = Asteroids.Bullet.SPEED;
+    var y_spd = Asteroids.Bullet.SPEED;
+    var vels = [];
+    vels.push([-1 * x_spd, y_spd]);
+    vels.push([x_spd, y_spd]);
+
+    return vels;
   }
   
   Ship.prototype.biggestBulletVels = function() {
