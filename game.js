@@ -41,9 +41,12 @@
   }
 
   Game.prototype.fireBullet = function() {
-    b = this.ship.fireBullet(this);
-    this.bullets.push(b);
-    console.log("Bullet! " + this.bullets);
+    var game = this;
+    newBullets = game.ship.fireBullet(game);
+    newBullets.forEach(function(b) {
+      game.bullets.push(b);
+      console.log("Bullet! " + game.bullets.length);
+    })
   }
 
   Game.prototype.addAsteroids = function(numAsteroids) {
@@ -69,6 +72,7 @@
 
   Game.prototype.checkCollisions = function() {
     this.checkAsteroidCollisions();
+    this.checkShipCollisions();
   }
   
   Game.prototype.checkShipCollisions = function() {
@@ -79,8 +83,8 @@
     var game = this;
     this.powerups.forEach(function(powerup) {
       if (game.ship.isCollidedWith(powerup)) {
-        game.ship.gainPowerup(powerup.color);
         game.removePowerup(powerup);
+        game.ship.gainPowerup(powerup.color);
       }
     });
     
@@ -89,9 +93,9 @@
   }
   
   Game.prototype.checkAsteroidCollisions = function() {
-    // asteroid collides with ship
     var game = this;
     
+    // asteroid collides with ship
     this.asteroids.forEach(function (asteroid) {
       if ( asteroid.isCollidedWith(game.ship) ) {
         game.lives -= 1;
@@ -137,11 +141,11 @@
     if (this.powerupPoints >= Game.POINTS_FOR_POWERUP) {
       
       var newPos = asteroid.pos;
-      var newVelX = asteroid.vel[0] * Math.random() * 2;
-      var newVelY = asteroid.vel[1] * Math.random() * 2;
+      var newVelX = asteroid.vel[0] * Math.random() * 10;
+      var newVelY = asteroid.vel[1] * Math.random() * 10;
       var newVel = [ newVelX, newVelY ];
       
-      this.powerupPoints = 0;
+      this.powerupPoints -= Game.POINTS_FOR_POWERUP;
       console.log("powerup points achieved!")
       this.addPowerups(1, newPos, newVel);
     }

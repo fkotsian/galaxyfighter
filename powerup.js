@@ -13,8 +13,8 @@
   
   Powerup.inherits(Asteroids.MovingObject);
   
-  Powerup.COLORS = ['red', 'blue', 'purple'];
-  Powerup.RADIUS = 4;
+  Powerup.COLORS = ['red'];//, 'blue', 'purple'];
+  Powerup.RADIUS = 10;
   
   Powerup.randomPowerup = function(pos, vel) {
     // var randX = Math.random() * dimX;
