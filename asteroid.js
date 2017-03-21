@@ -80,7 +80,7 @@
     var vel = [ 0, randomSpeed() ];
 
     function randomSpeed() {
-      return Math.random(20, 60);
+      return Math.random(30, 60);
     }
 
     return new Asteroid(game, pos, vel);

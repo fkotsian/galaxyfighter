@@ -25,6 +25,7 @@
   Game.DIM_Y = Asteroids.DIM_Y =  720;
   Game.FPS = 30;
   Game.POINTS_FOR_POWERUP = 250;
+  Game.ASTEROID_MULTIPLIER = 2;
 
   Game.prototype.bindKeyHandlers = function() {
     var game = this;
@@ -121,36 +122,36 @@
       });
     });
   }
-  
+
   Game.prototype.checkBulletCollisions = function() {
     // bullet collides with asteroids
     // currently handled in checkAsteroidCollisions();
   }
-  
+
   Game.prototype.givePointsAndPowerups = function(asteroid) {
     var pts = (this.level * asteroid.pointVal);
     this.points += pts;
-    
+
     // check if pts earned qualify us for a powerup
     this.checkForPowerup(pts, asteroid);
   }
-  
+
   Game.prototype.checkForPowerup = function(pts, asteroid) {
     this.powerupPoints += pts;
     console.log(this.powerupPoints, Game.POINTS_FOR_POWERUP);
     if (this.powerupPoints >= Game.POINTS_FOR_POWERUP) {
-      
+
       var newPos = asteroid.pos;
       var newVelX = asteroid.vel[0] * Math.random() * 10;
       var newVelY = asteroid.vel[1] * Math.random() * 10;
       var newVel = [ newVelX, newVelY ];
-      
+
       this.powerupPoints -= Game.POINTS_FOR_POWERUP;
       console.log("powerup points achieved!")
       this.addPowerups(1, newPos, newVel);
     }
   }
-  
+
   Game.prototype.removeObjectFromCollection = function(obj, coll) {
     for (var i = 0; i < coll.length; i++) {
       if ( coll[i] === obj ) {
@@ -162,7 +163,7 @@
   Game.prototype.removeAsteroid = function(a){
     this.removeObjectFromCollection(a, this.asteroids);
   }
-  
+
   Game.prototype.removePowerup = function(pu) {
     this.removeObjectFromCollection(pu, this.powerups);
   }
@@ -297,13 +298,13 @@
     alert("Get ready! Use w,s,a,d to move and Space to fire!");
     setTimeout(function(){}, 2000);
     gameTimerId = setInterval(this.step.bind(this), Game.FPS);
-    
+
     var that = this;
-    asteroidTimerId = setInterval(function() { 
-      that.addAsteroids(that.level) 
+    asteroidTimerId = setInterval(function() {
+      that.addAsteroids(that.level * that.ASTEROID_MULTIPLIER)
     }, 2000);
-    
-    levelTimerId = setInterval(function() { 
+
+    levelTimerId = setInterval(function() {
       that.level += 1;
       alert("Level up! You are now level " + that.level + ". \nPrepare for more asteroids!");
       that.checkLevelUp();
